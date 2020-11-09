@@ -8,4 +8,7 @@ body {
 
 .show {
   display: block !important;
+  text-align: center !important;
+
 }
+

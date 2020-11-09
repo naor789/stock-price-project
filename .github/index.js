@@ -1,10 +1,8 @@
 const button = document.getElementById("searchButton");
 const spinnerBorder = document.getElementById("spinnerBorder");
-console.log(spinnerBorder);
 const search = document.getElementById("search");
 spinnerBorder.classList.add("hide");
 button.addEventListener('click', spinnerLoading);
-
 
 function spinnerLoading() {
     spinnerBorder.classList.remove("hide");
