@@ -1,0 +1,11 @@
+body {
+  padding: 3% 6% 0 6%;
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
