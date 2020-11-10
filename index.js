@@ -23,10 +23,9 @@ function presentResult() {
         })
         .then(function (data) {
             for (let results of data) {
-                console.log(results);
                 let ulResult = document.getElementById("ulResult");
                 let listResult = document.createElement("li");
-                let link = `${results.name}, ${results.symbol}`;
+                let link = `${results.name}, (${results.symbol})`;
                 let resultedLink = link.link(`/company.html?symbol=${results.symbol}`);
                 listResult.innerHTML = resultedLink ;
                 ulResult.appendChild(listResult);
@@ -38,3 +37,4 @@ function presentResult() {
             console.log(error);
         });
 }
+

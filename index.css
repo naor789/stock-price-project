@@ -1,5 +1,6 @@
 body {
   padding: 3% 6% 0 6%;
+  /* font-family: ; */
 }
 
 .hide {
@@ -10,5 +11,13 @@ body {
   display: block !important;
   text-align: center !important;
 
+}
+
+.green {
+  color: lightgreen;
+}
+
+.red {
+  color: red;
 }
 
