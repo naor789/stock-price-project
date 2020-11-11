@@ -1,17 +1,18 @@
 const urlParams = new URLSearchParams(window.location.search);
 const symbol = urlParams.get('symbol');
-let companyName = document.getElementById("companyName");
-let companyInfo = document.getElementById("companyInfo");
-let linkCompany = document.getElementById("linkCompany");
-let companyImage = document.getElementById("companyImage");
-let stockPrice = document.getElementById("stockPrice");
-let changesPercentage = document.getElementById("changesPercentage");
-let spinnerBorder2 = document.getElementById("spinnerBorder2");
-spinnerBorder2.classList.add("hide");
+
+const companyName = document.getElementById("companyName");
+// console.log(companyName);
+const companyInfo = document.getElementById("companyInfo");
+const linkCompany = document.getElementById("linkCompany");
+const companyImage = document.getElementById("companyImage");
+const stockPrice = document.getElementById("stockPrice");
+const changesPercentage = document.getElementById("changesPercentage");
+// let spinnerBorder2 = document.getElementById("spinnerBorder2");
+// spinnerBorder2.classList.add("hide");
 
 
-
-function companyResults() {
+ function companyResults() {
     let url = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`;
 
     fetch(url)
@@ -19,6 +20,7 @@ function companyResults() {
             return response.json();
         })
         .then(function (data) {
+            console.log(data.profile);
             let profile = data.profile;
             companyName.innerHTML = profile.companyName;
             companyInfo.innerHTML = profile.description;
@@ -45,58 +47,49 @@ companyResults();
 // function spinnerLoading2() {
 //     spinnerBorder2.classList.remove("hide");
 //     spinnerBorder2.classList.add("show");
-//     setTimeout(history, 1500);
+//     setTimeout(historical, 1500);
 
-//     spinnerLoading2();
-// async function chatrIt( ) {
-// await history();
-//                 let myChart = document.getElementById('myChart').getContext('2d');
-//                 let ChartHi = new Chart(myChart, {
-//                     type: 'line',
-//                     data: {
-//                         labels: labelY ,
-//                         datasets: [{
-//                             label: 'stock price history',
-//                             data: labelX ,
-//                         }
-//                         ]
-//                     }
-//                 });
-        
-//         .catch(function (error) {
-//             console.log(error);
-//         } );
-// }
-
-        // chatrIt(); 
+    // spinnerLoading2();
 
 
-   function history() {
-        spinnerBorder2.classList.remove("hide");
+ async function historical() {
+    // spinnerBorder2.classList.remove("hide");
+    let urlHistorical = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/historical-price-full/${symbol}?serietype=line`;
+    const response = await fetch(urlHistorical);
+    const data = await response.json()
+    const history = data.historical;
+    chartIt(history);
+}
 
-        let url = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/historical-price-full/${symbol}?serietype=line`;
+function chartIt(history) {
+    
+    let labelX = [];
+    let labelY = [];
 
-        fetch(url)
-            .then (function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                let history = data.historical;
-                console.log(history);
-
-                let labelX = [];
-                let labelY = [];
-                for (let i = 0; i < history.length; i++) {
-                    labelX.push(history[i].date);
-                    labelY.push(history[i].close);
-                }
-        
-
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+    for (let i = history.length - 1; i >= 0; i = i - 20) {
+        labelX.push(history[i].date);
+        labelY.push(history[i].close);
+        console.log(history[i].close);
+        console.log(history[i].date);
     }
 
-
-    history();
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels:labelX ,
+            datasets: [{
+                label: 'stock price history',
+                data: labelY,
+                backgroundColor:
+                    'rgba(255, 99, 132, 0.2)',
+                borderColor:
+                    'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }
+            ]
+        }
+    });
+}
+// chartIt(history);
+historical();

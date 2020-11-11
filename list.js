@@ -16,3 +16,45 @@
 //             console.log(error);
 //         });
 // }
+
+
+
+
+
+
+
+// .then(function (response) {
+    //     return response.json()
+    // })
+    // .then(function (data) {
+    // let results of data
+    // let historical = data.historical;
+    // console.log(historical);
+    // let labelX = [];
+    // let labelY = [];
+    // for (let i = 0; i < historical.length; i++) {
+    //     labelX.push(historical[i].date);
+    //     labelY.push(historical[i].close);
+    // }
+    // return labelX;
+    // return labelY;
+    // console.log(labelY);
+    // console.log(labelX);
+
+    // let myChart = document.getElementById('myChart').getContext('2d');
+    // let ChartHi = new Chart(myChart, {
+    //     type: 'line',
+    //     data: {
+    //         labels: labelX,
+    //         datasets: [{
+    //             label: 'stock price history',
+    //             data: labelY,
+    //         }
+    //         ]
+    //     }
+    // });
+
+    // })
+    // .catch(function (error) {
+    //     console.log(error);
+    // });
