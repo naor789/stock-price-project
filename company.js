@@ -2,14 +2,11 @@ const urlParams = new URLSearchParams(window.location.search);
 const symbol = urlParams.get('symbol');
 
 const companyName = document.getElementById("companyName");
-// console.log(companyName);
 const companyInfo = document.getElementById("companyInfo");
 const linkCompany = document.getElementById("linkCompany");
 const companyImage = document.getElementById("companyImage");
 const stockPrice = document.getElementById("stockPrice");
 const changesPercentage = document.getElementById("changesPercentage");
-// let spinnerBorder2 = document.getElementById("spinnerBorder2");
-// spinnerBorder2.classList.add("hide");
 
 
  function companyResults() {
@@ -29,7 +26,13 @@ const changesPercentage = document.getElementById("changesPercentage");
             linkCompany.href = profile.website;
             stockPrice.innerHTML += profile.price;
             changesPercentage.innerHTML = profile.changesPercentage;
-
+            (function() {
+				const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+				link.type = 'image/x-icon';
+				link.rel = 'shortcut icon';
+				link.href = `${data.profile.image}`;
+				document.getElementsByTagName('head')[0].appendChild(link);
+			})();
             let Percentage = profile.changesPercentage;
             if (Percentage.includes('+')) {
                 changesPercentage.classList.add("green");
@@ -44,16 +47,8 @@ const changesPercentage = document.getElementById("changesPercentage");
 }
 companyResults();
 
-// function spinnerLoading2() {
-//     spinnerBorder2.classList.remove("hide");
-//     spinnerBorder2.classList.add("show");
-//     setTimeout(historical, 1500);
-
-    // spinnerLoading2();
-
 
  async function historical() {
-    // spinnerBorder2.classList.remove("hide");
     let urlHistorical = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/historical-price-full/${symbol}?serietype=line`;
     const response = await fetch(urlHistorical);
     const data = await response.json()
@@ -66,11 +61,9 @@ function chartIt(history) {
     let labelX = [];
     let labelY = [];
 
-    for (let i = history.length - 1; i >= 0; i = i - 20) {
+    for (let i = history.length - 1; i >= 0; i = i - 70) {
         labelX.push(history[i].date);
         labelY.push(history[i].close);
-        console.log(history[i].close);
-        console.log(history[i].date);
     }
 
     const ctx = document.getElementById('myChart').getContext('2d');
@@ -91,5 +84,4 @@ function chartIt(history) {
         }
     });
 }
-// chartIt(history);
 historical();
