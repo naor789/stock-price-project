@@ -17,7 +17,6 @@ const changesPercentage = document.getElementById("changesPercentage");
             return response.json();
         })
         .then(function (data) {
-            console.log(data.profile);
             let profile = data.profile;
             companyName.innerHTML = profile.companyName;
             companyInfo.innerHTML = profile.description;

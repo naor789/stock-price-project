@@ -14,37 +14,27 @@
     />
   </head>
   <body>
+    <div class="container p">
     <div class="marquee">
       <div id="marquee"></div>
 		</div>
     <p class="h1">Search Nasdaq Stocks</p> 
-    <div class="input-group mb-3">
-      <input
-      id = "input"
-        type="text"
-        class="form-control"
-        placeholder="Type To Search"
-        aria-label="Recipient's username"
-        aria-describedby="button-addon2"
-      />
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          id="searchButton"
-        >
-          Search
-        </button>
-      </div>
-    </div>
-    <span id="changesPercentage"></span>
-    <div class="text-center" id="spinnerBorder">
-      <div class="spinner-border" role="status">
-        <span class="sr-only"></span>
-      </div>
-    </div>
-    <ul class="list-group list-group-flush" id="ulResult"></ul>
+    <div id="form"> </div>
+    <div id="results"></div>
+    <script src="searchForm.js"></script>
+    <script src="searchResult.js"></script>
+    <script src="marquee.js"></script>
+    <script>
+     ( async function (){
+        const marquee = new Marquee(document.getElementById("marquee"));
+        marquee.showMarquee();
+    const form = new SearchForm(document.getElementById("form"));
+    const results = new SearchResults(document.getElementById("results"));
+form.onSearch((companies)=> {
+  results.renderResults(companies);
+})
+})()
 
-    <script type="module" src="index.js"></script>
+    </script>
   </body>
 </html>

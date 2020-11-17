@@ -1,22 +1,33 @@
 class Marquee {
-    constructor(data, dataEL, getText) {
-		this.data = data;
+	constructor(dataEL) {
 		this.dataEL = dataEL;
-        this.getText = getText;
+
 	}
 
 	showMarquee() {
-		for (let item of this.data) {
-            let marqueeItem = document.createElement("span");
-            marqueeItem.className = 'marqueeItem';
-            marqueeItem.innerHTML = this.getText(item);
-            this.dataEL.appendChild(marqueeItem);
-            
-		}
+		const url = "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/stock-screener?marketCapMoreThan=1000000000&betaMoreThan=1&volumeMoreThan=10000&sector=Technology&exchange=NASDAQ&dividendMoreThan=0&limit=50";
+		fetch(url)
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (data) {
+				for (let item of data) {
+					// console.log(item);
+					let marqueeItem = document.createElement("span");
+					marqueeItem.className = 'marqueeItem';
+					marqueeItem.innerHTML = `${item.symbol}(${item.price})`;
+					document.getElementById("marquee").appendChild(marqueeItem);
+
+				}
+
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+
+
 	}
 
-    
-}
 
-export default Marquee;
+}
 
